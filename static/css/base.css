@@ -17,6 +17,10 @@ body {
     background: #97c697;
 }
 
+.nav-accent {
+    background: #b4997c;
+}
+
 /* from Bulma */
 .icon {
     align-items: center;
