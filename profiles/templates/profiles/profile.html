@@ -23,28 +23,27 @@
                 <hr>
             </div>
         </div>
-        <div class="row">
-            <div class="col-12 col-lg-6">
-                <p class="text-muted">Profile:</p>
-                <form action="{% url 'profile' %}" method="POST" id="profile-update-form" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        {{ field | as_crispy_field }}
-                    {% endfor %}
-                    <button class="btn btn-black rounded-0 text-uppercase float-right mb-4">Update Information</button>
-                </form>
-                <a class="btn btn-outline-black rounded-0" href="{% url 'account_change_password' %}">Reset Password</a>
+        <form action="{% url 'profile' %}" method="POST" id="profile-update-form" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-12 col-lg-6">
+                    <p class="text-muted">Profile:</p>
+                        {% csrf_token %}
+                        {% for field in form %}
+                            {{ field | as_crispy_field }}
+                        {% endfor %}
+                        <button class="btn btn-black rounded-0 text-uppercase float-right mb-4" id="input">Update Information</button>
+                    <a class="btn btn-outline-black rounded-0" href="{% url 'account_change_password' %}">Reset Password</a>
+                </div>
+                <div class="col-12 col-lg-6">
+                    <p class="text-muted">Profile Picture</p>
+                    {% if form.default_image.value %}
+                        <img class="img-fluid rounded" src="{{ MEDIA_URL }}{{ form.default_image.value }}" alt="" onerror="imgError(this)" id="profile-image">
+                    {% else %}
+                        <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="NO Profile Image">
+                    {% endif %}   
+                </div>        
             </div>
-            <div class="col-12 col-lg-6">
-                <p class="text-muted">Profile Picture</p>
-                {% if form.default_image %}
-                    <img class="img-fluid rounded" src="{{ MEDIA_URL }}{{ form.default_image.value }}" alt="Profile Image">
-                {% else %}
-                    <img class="img-fluid rounded" src="{{ MEDIA_URL }}noimage.png" alt="NO Profile Image">
-                {% endif %}
-                
-            </div>        
-        </div>
+        </form>
     </div>
 
         
@@ -53,5 +52,25 @@
 {% block postloadjs %}
     {{ block.super }}
     <script type="text/javascript" src="{% static 'js/countryfield.js' %}"></script>
+
+    <script type="text/javascript">
+
+        function imgError(image) {
+            image.onerror = "";
+            var img = document.getElementById('profile-image')
+            var imgURL =  img.src;
+            var splitURL = imgURL.toString().split('/');
+
+            // Saving to a specific folder location in media, causes an error loading the image. Easiest to resubmit the form in order
+            // to keep the success message. I used the if statement to prevent a infinite loop if it cannot find the image location.
+
+            if (splitURL[splitURL.length - 2] != "profile_images") {
+                document.getElementById('input').click();
+
+            }
+
+        }
+
+    </script>
     
 {% endblock %}

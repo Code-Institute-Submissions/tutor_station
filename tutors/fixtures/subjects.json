@@ -1,0 +1,66 @@
+[
+  {
+    "pk": 1,
+    "model": "tutors.subject",
+    "fields": {
+      "name": "science",
+      "friendly_name": "Science"
+    }
+  },
+  {
+    "pk": 2,
+    "model": "tutors.subject",
+    "fields": {
+      "name": "english",
+      "friendly_name": "English"
+    }
+  },
+  {
+    "pk": 3,
+    "model": "tutors.subject",
+    "fields": {
+      "name": "german",
+      "friendly_name": "German"
+    }
+  },
+  {
+    "pk": 4,
+    "model": "tutors.subject",
+    "fields": {
+      "name": "french",
+      "friendly_name": "French"
+    }
+  },
+  {
+    "pk": 5,
+    "model": "tutors.subject",
+    "fields": {
+      "name": "spanish",
+      "friendly_name": "Spanish"
+    }
+  },
+  {
+    "pk": 6,
+    "model": "tutors.subject",
+    "fields": {
+      "name": "maths",
+      "friendly_name": "Maths"
+    }
+  },
+  {
+    "pk": 7,
+    "model": "tutors.subject",
+    "fields": {
+      "name": "so",
+      "friendly_name": "SO"
+    }
+  },
+  {
+    "pk": 8,
+    "model": "tutors.subject",
+    "fields": {
+      "name": "swedish",
+      "friendly_name": "Swedish"
+    }
+  }
+]
