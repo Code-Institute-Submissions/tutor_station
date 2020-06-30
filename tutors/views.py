@@ -108,9 +108,7 @@ def add_tutor(request):
 def edit_tutor(request, tutor_id):
     """ Edit a product in the store """
 
-    tutorget = Tutor.objects.filter(user=request.user)
-    tutor_user = tutorget.values_list('user', flat=True)[0]
-    tutor_id = tutorget.values_list('id', flat=True)[0]
+    
     tutor = get_object_or_404(Tutor, pk=tutor_id)
 
     if str(request.user) != tutor_user:
