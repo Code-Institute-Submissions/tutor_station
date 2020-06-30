@@ -54,7 +54,6 @@ def remove_from_bag(request, item_id):
 
     try:
         tutor = get_object_or_404(Tutor, pk=item_id)
-        size = None
         bag = request.session.get('bag', {})
 
         bag.pop(item_id)

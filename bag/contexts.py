@@ -1,5 +1,4 @@
 from decimal import Decimal
-from django.conf import settings
 from django.shortcuts import get_object_or_404
 from tutors.models import Tutor
 
@@ -24,7 +23,6 @@ def bag_contents(request):
     vat = total * Decimal(0.25)
     total = total - vat
     grand_total = total + vat
-    
 
     context = {
         'bag_items': bag_items,

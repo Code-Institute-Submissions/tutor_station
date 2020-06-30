@@ -1,83 +1,92 @@
 # Tutor Station
 
-One or two paragraphs providing an overview of your project.
+<a href="https://jh-tutor-station.herokuapp.com/" target="_blank">Hosted website</a>
 
-Essentially, this part is your sales pitch.
+A one stop shop for tutor hires. I work at a school with a lot of kids that need special attention and something like this would be handy for many parents. 
+An open market where users can offer their services at a price they dictate. Where the service will process payments, pay taxes, and forward payment to the tutor for a nominal percentage.
  
 ## UX
  
-Use this section to provide insight into your UX process, focusing on who this website is for, what it is that they want to achieve and how your project is the best way to help them achieve these things.
+What I envision is two sperate personalized profiles, one being the user profile, and one being the tutor. The user profile is not optional, but also can be left blank, where the tutor profile is optional. Once created you go into the pool of avaible users who are availbe to be rented.
+The user profile will have a standard configuration. Where the tutor profile will include things like the Krona per hour (I live in Sweden), education, description, and a picture (headshot).
 
-In particular, as part of this section we recommend that you provide a list of User Stories, with the following general structure:
+I would like to develop a time confirmation system that would allow both parties to agree on a mutual time before payment is processed.
+
 - As a user type, I want to perform an action, so that I can achieve a goal.
 
 <a href="https://docs.google.com/spreadsheets/d/1xQu8-Sik9xZ30X8uSA1TUd0WgebbZ9QiLu0bxyl3Png/edit?usp=sharing" target="_blank">User Stories</a>
 
-This section is also where you would share links to any wireframes, mockups, diagrams etc. that you created as part of the design process. These files should themselves either be included as a pdf file in the project itself (in an separate directory), or just hosted elsewhere online and can be in any format that is viewable inside the browser.
-
 ## Features
 
-In this section, you should go over the different parts of your project, and describe each in a sentence or so.
+Picture adoption into user profiles was something I wanted but I had it upload into another userprofile form. I had the image display beside the form, but I discovered that it took an additional refresh to make the image appear. Just using a onerror="imgError(this) to refresh the page would not do because there existed a possibility of an infinite refresh loop, so I split the url and used that to make sure it was correct.
+
+Making the tutor profiles only editable by the creating user but availble for everyone to see in the marketplace was challenging. I ended up pushing their unique username into the form in a field that was not shown on the HTML render. Using that logic and a context processor I managed to make that work.
  
 ### Existing Features
-- Feature 1 - allows users X to achieve Y, by having them fill out Z
-- ...
-
-For some/all of your features, you may choose to reference the specific project files that implement them, although this is entirely optional.
-
-In addition, you may also use this section to discuss plans for additional features to be implemented in the future:
+- Feature 1 - Account Creation with email confirmation. Full allauth intregration
+- Editable User profiles with a picture.
+- Tutor Profiles that are public, but only editable by their creators.
+- Client request a tutoring time (did not complete).
+- AWS S3 bucket intregration for filestorage.
+- Stripe checkouts with webhooks.
 
 ### Features Left to Implement
-- Another feature idea
+- Tutor confirms/reschedules tutoring time.
+- Client confirms and processes payment for the agreed amount of hours. 
 
 ## Technologies Used
 
-In this section, you should mention all of the languages, frameworks, libraries, and any other tools that you have used to construct this project. For each, provide its name, a link to its official site and a short sentence of why it was used.
+- [Javascript](https://www.javascript.com)
+    - The project uses **Javascript** for DOM manipulation.
 
 - [JQuery](https://jquery.com)
     - The project uses **JQuery** to simplify DOM manipulation.
 
+- [Bootstrap](https://getbootstrap.com)
+    - The project uses **Bootstrap** for easy formatting and website design
+
+- [Django](https://www.djangoproject.com)
+    - The project uses **Django**. For their diverse database integrated web framework.
+
+- [Python 3.8.3](https://www.python.org)
+    - The project uses **Python**. To operate Django.
+
+- [Heroku](https://www.heroku.com)
+    - The project uses **Heroku**. For Web Hosting and Postgres database.
+
+- [Amazon.AWS - S3](https://aws.amazon.com)
+    - The project uses **Amazon.AWS - S3**. For static file hosting.
+
+- [Github](https://github.com)
+    - The project uses **Github**. For version control.
+
+- [Gitpod](https://gitpod.io)
+    - The project uses **Gitpod**. As the creating IDE.
+
+- [Gmail](https://www.google.com/gmail)
+    - The project uses **Gmail**. App Password to send automatic emails.
+
+- [Stripe](https://stripe.com/)
+    - The project uses **Stripe**. For credit card processing.
+
 
 ## Testing
 
-In this section, you need to convince the assessor that you have conducted enough testing to legitimately believe that the site works well. Essentially, in this part you will want to go over all of your user stories from the UX section and ensure that they all work as intended, with the project providing an easy and straightforward way for the users to achieve their goals.
+We tested by constant use and perfection until it worked, after it was hosted I had several people look it over to find bugs. There were few. I also did a flake8 review to try and locate any critical issues.
 
-Whenever it is feasible, prefer to automate your tests, and if you've done so, provide a brief explanation of your approach, link to the test file(s) and explain how to run them.
-
-For any scenarios that have not been automated, test the user stories manually and provide as much detail as is relevant. A particularly useful form for describing your testing process is via scenarios, such as:
-
-1. Contact form:
-    1. Go to the "Contact Us" page
-    2. Try to submit the empty form and verify that an error message about the required fields appears
-    3. Try to submit the form with an invalid email address and verify that a relevant error message appears
-    4. Try to submit the form with all inputs valid and verify that a success message appears.
-
-In addition, you should mention in this section how your project looks and works on different browsers and screen sizes.
-
-You should also mention in this section any interesting bugs or problems you discovered during your testing, even if you haven't addressed them yet.
-
-If this section grows too long, you may want to split it off into a separate file and link to it from here.
 
 ## Deployment
 
-This section should describe the process you went through to deploy the project to a hosting platform (e.g. GitHub Pages or Heroku).
+Gitpod for version control connected to Heroku.
 
-In particular, you should provide all details of the differences between the deployed version and the development version, if any, including:
-- Different values for environment variables (Heroku Config Vars)?
-- Different configuration files?
-- Separate git branch?
+- Gitpod Deployment uses a SQLite3 database and heroku is using a postgres with global vars secured there.
+- Heroku deployment is also utilizing an amazon S3 bucket for storage of static files, with all vars secured on Heroku.
 
 In addition, if it is not obvious, you should also describe how to run your code locally.
 
-
 ## Credits
 
-### Content
-- The text for section Y was copied from the [Wikipedia article Z](https://en.wikipedia.org/wiki/Z)
+Ckz8780 and his Boutique Ado Project. His videos on the current version of django and his project where outstanding. I relied heavily on his design and code. and it's influence is heavily noticeable with my site. I view this project as a starting point and even though his videos were good, I needed to manipulate his work in order to figure out how Django really worked.
+Stackoverflow, because they are a great community who can often shelp you get unstuck.
+My Wife, Sofia for drawing pictures for me to use.
 
-### Media
-- The photos used in this site were obtained from ...
-
-### Acknowledgements
-
-- I received inspiration for this project from X

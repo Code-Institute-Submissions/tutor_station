@@ -68,6 +68,7 @@ def tutor_detail(request, tutor_id):
 
     return render(request, 'tutors/tutor_detail.html', context)
 
+
 @login_required
 def add_tutor(request):
     """ Add a tutor to the store """
