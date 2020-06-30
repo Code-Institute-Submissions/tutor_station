@@ -25,9 +25,12 @@
             <div class="col-12 col-md-6">
                 <form method="POST" action="{% url 'add_tutor' %}" class="form mb-2" enctype="multipart/form-data">
                     {% csrf_token %}
+                    {{ tutorget }}
                     {% for field in form %}
                         {% if field.name != 'image' %}
-                            {{ field | as_crispy_field }}
+                            {% if  field.name != 'user' %}
+                                {{ field | as_crispy_field }}
+                            {% endif %}
                         {% else %}
                             {{ field }}
                         {% endif %}

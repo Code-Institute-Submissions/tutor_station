@@ -69,17 +69,24 @@ def tutor_detail(request, tutor_id):
 
     return render(request, 'tutors/tutor_detail.html', context)
 
-
 @login_required
 def add_tutor(request):
     """ Add a tutor to the store """
-    if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
-        return redirect(reverse('home'))
+
+    tutorget = Tutor.objects.filter(user=request.user)
 
     if request.method == 'POST':
+
+        if not request.user.is_superuser:
+
+            if len(tutorget) > 0:
+                messages.error(request, 'You already created a Tutor Account.')
+                return redirect(reverse('home'))
+
         form = TutorForm(request.POST, request.FILES)
+
         if form.is_valid():
+            form.user = request.user
             tutor = form.save()
             messages.success(request, 'Successfully added Tutor!')
             return redirect(reverse('tutor_detail', args=[tutor.id]))
@@ -91,6 +98,7 @@ def add_tutor(request):
     template = 'tutors/add_tutor.html'
     context = {
         'form': form,
+        'tutorcount': len(tutorget),
     }
 
     return render(request, template, context)
@@ -98,28 +106,34 @@ def add_tutor(request):
 
 @login_required
 def edit_tutor(request, tutor_id):
-    """ Edit a tutor in the store """
-    if not request.user.is_superuser:
-        messages.error(request, 'Sorry, only store owners can do that.')
+    """ Edit a product in the store """
+
+    tutorget = Tutor.objects.filter(user=request.user)
+    tutor_user = tutorget.values_list('user', flat=True)[0]
+    tutor_id = tutorget.values_list('id', flat=True)[0]
+    tutor = get_object_or_404(Tutor, pk=tutor_id)
+
+    if str(request.user) != tutor_user:
+        messages.error(request, 'Sorry, This is not your account.')
         return redirect(reverse('home'))
 
-    tutor = get_object_or_404(Tutor, pk=tutor_id)
     if request.method == 'POST':
         form = TutorForm(request.POST, request.FILES, instance=tutor)
         if form.is_valid():
             form.save()
-            messages.success(request, 'Successfully updated Tutor!')
+            messages.success(request, 'Successfully updated product!')
             return redirect(reverse('tutor_detail', args=[tutor.id]))
         else:
-            messages.error(request, 'Failed to update tutor. Please ensure the form is valid.')
+            messages.error(request, 'Failed to update product. Please ensure the form is valid.')
     else:
         form = TutorForm(instance=tutor)
         messages.info(request, f'You are editing {tutor.name}')
 
-    template = 'tutorss/edit_tutor.html'
+    template = 'tutors/edit_tutor.html'
     context = {
         'form': form,
         'tutor': tutor,
+        'tutor_id': tutor_id,
     }
 
     return render(request, template, context)

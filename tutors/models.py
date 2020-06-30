@@ -17,6 +17,7 @@ class Subject(models.Model):
 
 
 class Tutor(models.Model):
+    user = models.CharField(max_length=254, null=True, blank=True)
     subject = models.ForeignKey('Subject', null=True, blank=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=254)
     education = models.CharField(max_length=1024, null=True, blank=True)

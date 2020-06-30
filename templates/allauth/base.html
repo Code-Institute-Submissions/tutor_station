@@ -24,6 +24,12 @@
       <ul>
         {% if user.is_authenticated %}
         <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+        {{ tutorcount }}
+        {% if tutorcount == 0 %}
+            <li><a href="{% url 'add_tutor' %}">Create Tutor Account</a></li>
+        {% else %}
+            <li><a href="{% url 'edit_tutor' %}">Edit Tutor Account</a></li>
+        {% endif %}
         <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
         {% else %}
         <li><a href="{% url 'account_login' %}">Sign In</a></li>

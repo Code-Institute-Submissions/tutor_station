@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
-from profiles.forms import UserProfileForm
-from profiles.models import UserProfile
+from tutors.models import Tutor
 
 def index(request):
     """ A view to return the index page """
-    profile = get_object_or_404(UserProfile, user=request.user)
-    form = UserProfileForm()
+    tutorget = Tutor.objects.filter(user=request.user)
+    tutor_id = tutorget.values_list('id', flat=True)[0]
     context = {
-        'form': form,
+        'tutorcount': len(tutorget),
+        'tutor_id': tutor_id,
     }
 
     return render(request, 'home/index.html', context)
