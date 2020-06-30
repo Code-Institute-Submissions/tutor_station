@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'home',
     'profiles',
     'tutors',
+    'bag',
 
     # Other
     'crispy_forms',
@@ -78,6 +79,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
                 'tutors.contexts.profile_security',
+                'bag.contexts.bag_contents',
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',

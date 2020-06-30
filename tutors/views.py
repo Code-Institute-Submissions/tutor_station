@@ -7,7 +7,6 @@ from django.db.models.functions import Lower
 from .models import Tutor, Subject
 from .forms import TutorForm
 
-
 def all_tutors(request):
     """ A view to show all tutorss, including sorting and search queries """
 
@@ -81,13 +80,14 @@ def add_tutor(request):
             messages.error(request, 'You already created a Tutor Account.')
             return redirect(reverse('home'))
 
-        form = TutorForm(request.POST, request.FILES)
+        form = TutorForm(request.POST, request.FILES, request.user)
 
         if form.is_valid():
-            form.user = request.user
-            tutor = form.save()
+            instance = form.instance
+            instance.user = request.user
+            tutor = instance.save()
             messages.success(request, 'Successfully added Tutor!')
-            return redirect(reverse('tutor_detail', args=[tutor.id]))
+            return redirect(reverse('home'))
         else:
             messages.error(request, 'Failed to add tutor. Please ensure the form is valid.')
     else:
