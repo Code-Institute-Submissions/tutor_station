@@ -35,7 +35,7 @@ def all_tutors(request):
         if 'subject' in request.GET:
             subjects = request.GET['subject'].split(',')
             tutors = tutors.filter(subject__name__in=subjects)
-            subjects = subjects.objects.filter(name__in=subjects)
+            subjects = Subject.objects.filter(name__in=subjects)
 
         if 'q' in request.GET:
             query = request.GET['q']
@@ -77,11 +77,9 @@ def add_tutor(request):
 
     if request.method == 'POST':
 
-        if not request.user.is_superuser:
-
-            if len(tutorget) > 0:
-                messages.error(request, 'You already created a Tutor Account.')
-                return redirect(reverse('home'))
+        if len(tutorget) > 0:
+            messages.error(request, 'You already created a Tutor Account.')
+            return redirect(reverse('home'))
 
         form = TutorForm(request.POST, request.FILES)
 
@@ -108,11 +106,12 @@ def add_tutor(request):
 def edit_tutor(request, tutor_id):
     """ Edit a product in the store """
 
-    
     tutor = get_object_or_404(Tutor, pk=tutor_id)
+    tutorget = Tutor.objects.filter(user=request.user)
+    tutor_id = tutorget.values_list('id', flat=True)[0]
 
-    if str(request.user) != tutor_user:
-        messages.error(request, 'Sorry, This is not your account.')
+    if str(request.user) != tutor.user:
+        messages.error(request, 'Sorry, That is not your account.')
         return redirect(reverse('home'))
 
     if request.method == 'POST':
