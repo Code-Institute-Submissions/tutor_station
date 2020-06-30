@@ -1,0 +1,1 @@
+web: gunicorn tutor_station.wsgi:application

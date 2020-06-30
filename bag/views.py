@@ -50,7 +50,7 @@ def adjust_bag(request, item_id):
 
 
 def remove_from_bag(request, item_id):
-    """ Remove a specific product from the shopping bag """
+    """ Remove a specific tutor from the shopping bag """
 
     try:
         tutor = get_object_or_404(Tutor, pk=item_id)

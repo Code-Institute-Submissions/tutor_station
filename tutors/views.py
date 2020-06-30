@@ -8,7 +8,7 @@ from .models import Tutor, Subject
 from .forms import TutorForm
 
 def all_tutors(request):
-    """ A view to show all tutorss, including sorting and search queries """
+    """ A view to show all tutors, including sorting and search queries """
 
     tutors = Tutor.objects.all()
     query = None
